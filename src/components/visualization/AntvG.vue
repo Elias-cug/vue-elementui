@@ -1,5 +1,5 @@
 <template>
-  <router-view></router-view>
+  <div>g6可视化</div>
 </template>
 
 <script>

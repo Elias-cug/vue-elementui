@@ -1,8 +1,12 @@
 import Vue from 'vue'
 import ElementUI from 'element-ui'
-import 'element-ui/lib/theme-chalk/index.css'
 import router from './router'
 import App from './App.vue'
+
+// 样式
+import 'element-ui/lib/theme-chalk/index.css'
+import './assets/css/base.css'
+import './assets/css/layout.css'
 
 Vue.use(ElementUI)
 

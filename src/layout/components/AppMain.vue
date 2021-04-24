@@ -1,6 +1,5 @@
 <template>
-  <div>
-    <span>内容区</span>
+  <div class="app-main">
     <router-view></router-view>
   </div>
 </template>

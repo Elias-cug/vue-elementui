@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="layout">
     <!-- 侧边栏 -->
     <sidebar />
 

@@ -3,6 +3,8 @@ import ElementUI from 'element-ui'
 import router from './router'
 import App from './App.vue'
 
+require('../mock')
+
 // 样式
 import 'element-ui/lib/theme-chalk/index.css'
 import './assets/css/base.css'

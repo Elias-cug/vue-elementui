@@ -1,11 +1,13 @@
 <template>
   <div>
-    <span>首页</span>
-    <el-button @click="jumpToVisPage">可视化</el-button>
+    <el-button @click="jumpToVisPage">首页</el-button>
+    <el-button @click="testPost">测试post</el-button>
+    <el-button @click="testGet">测试get</el-button>
   </div>
 </template>
 
 <script>
+import { get, post } from '@/utils/request.js'
 export default {
   name: 'Main',
   data () {
@@ -14,6 +16,16 @@ export default {
   methods: {
     jumpToVisPage () {
       this.$router.push('/visualization')
+    },
+    testPost () {
+      post('/api/getTopoData', { name: 'liyish' }).then(res => {
+        console.log(res)
+      })
+    },
+    testGet () {
+      get('/api/getTopoData', { name: 'liyish' }).then(res => {
+        console.log(res)
+      })
     }
   }
 }

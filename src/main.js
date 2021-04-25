@@ -9,6 +9,7 @@ require('../mock')
 import 'element-ui/lib/theme-chalk/index.css'
 import './assets/css/base.css'
 import './assets/css/layout.css'
+import './assets/css/topo.css'
 
 Vue.use(ElementUI)
 

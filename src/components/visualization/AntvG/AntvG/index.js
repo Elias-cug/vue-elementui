@@ -1,7 +1,7 @@
 import G6 from '@antv/g6'
 import { cloneDeep, merge } from 'lodash'
 import baseOpts from './options/base.js'
-import { nodeTip, edgeTip } from './plugins'
+import { createNodeTip, createEdgeTip } from './plugins'
 
 /**
  * @author liyish
@@ -13,7 +13,7 @@ import { nodeTip, edgeTip } from './plugins'
  */
 class AntvG {
   constructor (opts, type = 'global') {
-    this.topo = null
+    this.graph = null
     this.type = type
     this.options = this.mergeOpt(opts)
     this.plugins = []
@@ -24,15 +24,21 @@ class AntvG {
   /** 初始化实例: 完成动态增加插件， 实例化画布， 添加事件 */
   init () {
     this.addPlugin()
-    this.topo = new G6.Graph({ ...this.options, plugins: this.plugins })
+    this.graph = new G6.Graph({ ...this.options, plugins: this.plugins })
 
     this.addEvents()
   }
 
   /** 销毁画布 */
   destroy () {
-    this.topo.destroy()
-    this.topo = null
+    this.graph.destroy()
+    this.graph = null
+  }
+
+  /** 渲染数据 */
+  renderData (data) {
+    this.graph.data(data)
+    this.graph.render()
   }
 
   /** 切换主题:  */
@@ -40,19 +46,19 @@ class AntvG {
 
   /** 添加事件：默认添加以下事件。 一般需要重写 */
   addEvents () {
-    this.topo.on('node:mouseenter', evt => {
+    this.graph.on('node:mouseenter', evt => {
       this.addMouseenterNodeEvent(evt)
     })
 
-    this.topo.on('node:mouseout', evt => {
+    this.graph.on('node:mouseout', evt => {
       this.addMouseoutNodeEvent(evt)
     })
 
-    this.topo.on('edge:mouseenter', evt => {
+    this.graph.on('edge:mouseenter', evt => {
       this.addMouseenterEdgeEvent(evt)
     })
 
-    this.topo.on('edge:mouseout', evt => {
+    this.graph.on('edge:mouseout', evt => {
       this.addMouseoutEdgeEvent(evt)
     })
   }
@@ -73,19 +79,18 @@ class AntvG {
   addPlugin () {
     switch (this.type) {
       case 'global': {
-        this.plugins.push(edgeTip)
+        this.plugins.push(createEdgeTip())
         break
       }
       case 'trade': {
-        this.plugins.push(nodeTip)
+        this.plugins.push(createNodeTip())
       }
     }
   }
 
   /** 合并配置 */
-  mergeOpt (opt) {
-    baseOpts = cloneDeep(baseOpts)
-    const mergedOpt = merge(baseOpts, opt)
+  mergeOpt (opts) {
+    const mergedOpt = merge(cloneDeep(baseOpts), opts)
     return mergedOpt
   }
 }

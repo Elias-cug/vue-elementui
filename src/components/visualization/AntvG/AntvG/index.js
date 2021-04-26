@@ -39,10 +39,17 @@ class AntvG {
   renderData (data) {
     this.graph.data(data)
     this.graph.render()
+    this.graph.fitView([20, 20])
   }
 
   /** 切换主题:  */
   changeTheme () {}
+
+  /** 改变画布大小 */
+  changeSize (width, height) {
+    this.graph.changeSize(width, height)
+    this.graph.fitView()
+  }
 
   /** 添加事件：默认添加以下事件。 一般需要重写 */
   addEvents () {

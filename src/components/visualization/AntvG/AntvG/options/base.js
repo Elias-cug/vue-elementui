@@ -5,7 +5,7 @@ export default {
   modes: { default: ['drag-canvas', 'zoom-canvas'] },
   layout: {
     type: 'dagre',
-    ranksep: 150,
+    ranksep: 40,
     nodesep: 20,
     rankdir: 'LR'
   }

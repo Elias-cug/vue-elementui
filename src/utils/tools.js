@@ -24,3 +24,21 @@ export function getDomSize (ele) {
     height: Number(strHeight.substring(0, strHeight.length - 2))
   }
 }
+
+/**
+ * 防抖函数
+ */
+export function debounce (fn, wait) {
+  let timer = null
+  const context = this
+  const args = arguments
+  return function () {
+    if (timer) {
+      clearTimeout(timer)
+    }
+    timer = setTimeout(function () {
+      fn.apply(context, args)
+      timer = null
+    }, wait)
+  }
+}

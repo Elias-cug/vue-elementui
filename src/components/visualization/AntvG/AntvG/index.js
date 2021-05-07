@@ -39,7 +39,7 @@ class AntvG {
   renderData (data) {
     this.graph.data(data)
     this.graph.render()
-    this.graph.fitView([20, 20])
+    this.graph.fitView()
   }
 
   /** 切换主题:  */
@@ -97,8 +97,41 @@ class AntvG {
 
   /** 合并配置 */
   mergeOpt (opts) {
-    const mergedOpt = merge(cloneDeep(baseOpts), opts)
+    const mergedOpt = merge(baseOpts, opts)
     return mergedOpt
+  }
+
+  /** 数据过滤 */
+  dataFilter (data) {
+    data = cloneDeep(data)
+    data = {
+      nodes: this.filterNodes(data.nodes),
+      edges: this.filterEdges(data.edges),
+      combos: this.filterCombos(data.combos)
+    }
+    return data
+  }
+
+  /** 过滤节点 */
+  filterNodes (nodes = []) {
+    nodes = cloneDeep(nodes)
+
+    return nodes
+  }
+
+  /** 过滤边 */
+  filterEdges (edges = []) {
+    edges = cloneDeep(edges)
+
+    return edges
+  }
+
+  /** 过滤combo */
+
+  filterCombos (combos = []) {
+    combos = cloneDeep(combos)
+
+    return combos
   }
 }
 

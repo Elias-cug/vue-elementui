@@ -2,62 +2,51 @@ const topoArtif = {
   nodes: [
     {
       id: 'N01',
-      label: 'User',
-      nextApmNode: '',
-      type: 'User',
-      nodeType: 'USER'
+      label: 'BROWSER',
+      type: 'BROWSER',
+      nodeType: 'DEM'
     },
     {
       id: 'N02',
-      label: 'Firewall',
-      nextApmNode: '',
-      type: 'Firewall',
-      nodeType: 'FIREWALL'
+      label: 'Cloud',
+      type: 'Cloud',
+      nodeType: 'CLOUD'
     },
     {
       id: 'N03',
-      label: 'Switch-pre',
+      label: 'Switch',
       type: 'Switch',
-      nodeType: 'SWITCH',
-      costTime: '0.009',
-      throughPut: '50',
-      packetLossRate: '100'
+      nodeType: 'SWITCH'
     },
     {
       id: 'N04',
       label: 'Web',
-      nextApmNode: 'N06',
       type: 'Service',
-      nodeType: 'APM',
-      statusCode: '400',
-      costTime: '5.2'
+      nodeType: 'APM'
     },
     {
       id: 'N05',
-      label: 'Switch-Default',
-      type: 'Switch',
-      nodeType: 'SWITCH',
-      costTime: '3.89',
-      throughPut: '20',
-      packetLossRate: '200'
+      label: 'LB',
+      type: 'LB',
+      nodeType: 'LB'
     },
     {
       id: 'N06',
-      label: 'Service',
-      nextApmNode: 'N07',
+      label: 'Service-auth',
       type: 'Service',
-      nodeType: 'APM',
-      statusCode: '200',
-      costTime: '1.009'
+      nodeType: 'APM'
     },
     {
       id: 'N07',
-      label: 'Controller',
-      nextApmNode: '',
+      label: 'Service-order',
       type: 'Service',
-      nodeType: 'APM',
-      statusCode: '200',
-      costTime: '1.009'
+      nodeType: 'APM'
+    },
+    {
+      id: 'N08',
+      label: 'DB',
+      type: 'DB',
+      nodeType: 'APM'
     }
   ],
   edges: [
@@ -67,11 +56,6 @@ const topoArtif = {
       target: 'N02'
     },
     {
-      id: 'N01-N01',
-      source: 'N01',
-      target: 'N01'
-    },
-    {
       id: 'N02-N03',
       source: 'N02',
       target: 'N03'
@@ -79,32 +63,27 @@ const topoArtif = {
     {
       id: 'N03-N04',
       source: 'N03',
-      target: 'N04',
-      resTime: 7
+      target: 'N04'
     },
     {
       id: 'N04-N05',
       source: 'N04',
-      target: 'N05',
-      resTime: 8
+      target: 'N05'
     },
     {
       id: 'N05-N06',
       source: 'N05',
-      target: 'N06',
-      resTime: 9
-    },
-    {
-      id: 'N06-N05',
-      source: 'N06',
-      target: 'N05',
-      resTime: 10
+      target: 'N06'
     },
     {
       id: 'N05-N07',
       source: 'N05',
-      target: 'N07',
-      resTime: 11
+      target: 'N07'
+    },
+    {
+      id: 'N07-N08',
+      source: 'N07',
+      target: 'N08'
     }
   ]
 }

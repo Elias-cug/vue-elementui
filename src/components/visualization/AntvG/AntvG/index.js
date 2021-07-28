@@ -1,4 +1,6 @@
 import G6 from '@antv/g6'
+import { registerNode } from './register-node.js'
+import { registerEdge } from './register-edge.js'
 import { cloneDeep, merge } from 'lodash'
 import baseOpts from './options/base.js'
 import { createNodeTip, createEdgeTip } from './plugins'
@@ -21,9 +23,12 @@ class AntvG {
     this.init()
   }
 
-  /** 初始化实例: 完成动态增加插件， 实例化画布， 添加事件 */
+  /** 初始化实例:注册自定义边、注册自定义节点、 完成动态增加插件， 实例化画布， 添加事件 */
   init () {
-    this.addPlugin()
+    registerNode(G6)
+    registerEdge(G6)
+
+    // this.addPlugin()
     this.graph = new G6.Graph({ ...this.options, plugins: this.plugins })
 
     this.addEvents()
@@ -37,7 +42,9 @@ class AntvG {
 
   /** 渲染数据 */
   renderData (data) {
-    this.graph.data(data)
+    const result = this.dataFilter(data)
+    console.log('最终数据：', result)
+    this.graph.data(result)
     this.graph.render()
     this.graph.fitView()
   }
@@ -115,7 +122,10 @@ class AntvG {
   /** 过滤节点 */
   filterNodes (nodes = []) {
     nodes = cloneDeep(nodes)
-
+    nodes.forEach(ele => {
+      ele.imgType = ele.type
+      ele.type = 'rate-node'
+    })
     return nodes
   }
 

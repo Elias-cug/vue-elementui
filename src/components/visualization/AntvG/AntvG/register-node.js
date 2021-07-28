@@ -15,7 +15,7 @@ function registerRateNode (G6) {
     {
       afterDraw (cfg, group) {
         const r = 50
-        const rightRate = 0.6
+        const rightRate = 0.5
         // 计算当前的进度对应的角度值
         const degrees = rightRate * 360
         // 计算当前角度对应的弧度值
@@ -31,22 +31,19 @@ function registerRateNode (G6) {
 
         //极坐标转换成直角坐标
         const xEnd = (r * Math.sin(rad)).toFixed(2)
-        const yEnd = (r * Math.cos(rad)).toFixed(2)
+        const yEnd = -(r * Math.cos(rad)).toFixed(2)
+
+        console.log('起点坐标是：')
+        console.log(0, -r)
+        console.log('终点坐标是：')
+        console.log(xEnd, yEnd)
+
+        const rightPath = `M 0 ${-r} A ${r} ${r} 0 ${rightLargeArcFlag} 1 ${xEnd} ${yEnd}`
+        const falsePath = `M 0 ${-r} A ${r} ${r} 0 ${falseLargeArcFlag} 0 ${xEnd} ${yEnd}`
+
         group.addShape('path', {
           attrs: {
-            path: [
-              'M',
-              0,
-              -r,
-              'A',
-              r,
-              r,
-              0,
-              rightLargeArcFlag,
-              1,
-              xEnd,
-              yEnd
-            ].join(' '),
+            path: rightPath,
             stroke: 'green'
           },
           name: 'rate-node'
@@ -54,19 +51,7 @@ function registerRateNode (G6) {
 
         group.addShape('path', {
           attrs: {
-            path: [
-              'M',
-              0,
-              -r,
-              'A',
-              r,
-              r,
-              0,
-              falseLargeArcFlag,
-              0,
-              xEnd,
-              yEnd
-            ].join(' '),
+            path: falsePath,
             stroke: 'red'
           },
           name: 'rate-node'

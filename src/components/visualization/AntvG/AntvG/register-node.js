@@ -15,27 +15,59 @@ function registerRateNode (G6) {
     {
       afterDraw (cfg, group) {
         const r = 50
-        const rightRate = 3 / 4
+        const rightRate = 0.6
         // 计算当前的进度对应的角度值
         const degrees = rightRate * 360
         // 计算当前角度对应的弧度值
         const rad = degrees * (Math.PI / 180)
+
+        // 画大弧还是小弧 0：小 1：大
+        const rightLargeArcFlag = rightRate >= 0.5 ? 1 : 0
+
+        const falseLargeArcFlag = rightRate < 0.5 ? 1 : 0
+
+        // 顺时针还是逆时针 0：逆时针 1：顺时针
+        // const sweepFlag = ''
 
         //极坐标转换成直角坐标
         const xEnd = (r * Math.sin(rad)).toFixed(2)
         const yEnd = (r * Math.cos(rad)).toFixed(2)
         group.addShape('path', {
           attrs: {
-            path: ['M', 0, -r, 'A', r, r, 0, 0, 1, xEnd, yEnd].join(' '),
-            stroke: 'red'
+            path: [
+              'M',
+              0,
+              -r,
+              'A',
+              r,
+              r,
+              0,
+              rightLargeArcFlag,
+              1,
+              xEnd,
+              yEnd
+            ].join(' '),
+            stroke: 'green'
           },
           name: 'rate-node'
         })
 
         group.addShape('path', {
           attrs: {
-            path: ['M', 0, -r, 'A', r, r, 0, 1, 0, xEnd, yEnd].join(' '),
-            stroke: 'green'
+            path: [
+              'M',
+              0,
+              -r,
+              'A',
+              r,
+              r,
+              0,
+              falseLargeArcFlag,
+              0,
+              xEnd,
+              yEnd
+            ].join(' '),
+            stroke: 'red'
           },
           name: 'rate-node'
         })

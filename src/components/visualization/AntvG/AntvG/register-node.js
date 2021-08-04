@@ -16,13 +16,16 @@ function registerRateNode (G6) {
     'rate-node',
     {
       afterDraw (cfg, group) {
+        console.log('tmp log: ', cfg)
+        const { errorRate = 0 } = cfg
+
         // 配置
         const lineWidth = 3
         const rightColor = nodeRightColor
         const errorColor = nodeErrorColor
 
         const r = 50
-        const rightRate = 0.5
+        const rightRate = 1 - errorRate
         // 计算当前的进度对应的角度值
         const degrees = rightRate * 360
         // 计算当前角度对应的弧度值
@@ -33,31 +36,41 @@ function registerRateNode (G6) {
         const errorLargeArcFlag = rightRate < 0.5 ? 1 : 0
 
         //极坐标转换成直角坐标
-        const xEnd = (r * Math.sin(rad)).toFixed(2)
-        const yEnd = -(r * Math.cos(rad)).toFixed(2)
+        const xEnd = (r * Math.sin(rad)).toFixed(6)
+        const yEnd = -(r * Math.cos(rad)).toFixed(6)
 
         // 正确的路径
         const rightPath = `M 0 ${-r} A ${r} ${r} 0 ${rightLargeArcFlag} 1 ${xEnd} ${yEnd}`
         // 错误的路径
         const errorPath = `M 0 ${-r} A ${r} ${r} 0 ${errorLargeArcFlag} 0 ${xEnd} ${yEnd}`
 
-        group.addShape('path', {
-          attrs: {
-            path: rightPath,
-            stroke: rightColor,
-            lineWidth: lineWidth
-          },
-          name: 'rate-node'
-        })
-
-        group.addShape('path', {
-          attrs: {
-            path: errorPath,
-            stroke: errorColor,
-            lineWidth: lineWidth
-          },
-          name: 'rate-node'
-        })
+        if (errorRate === 1 || errorRate === 0) {
+          group.addShape('circle', {
+            attrs: {
+              r: r,
+              stroke: errorRate === 1 ? errorColor : rightColor,
+              lineWidth: lineWidth
+            },
+            name: 'rate-node'
+          })
+        } else {
+          group.addShape('path', {
+            attrs: {
+              path: rightPath,
+              stroke: rightColor,
+              lineWidth: lineWidth
+            },
+            name: 'rate-node'
+          })
+          group.addShape('path', {
+            attrs: {
+              path: errorPath,
+              stroke: errorColor,
+              lineWidth: lineWidth
+            },
+            name: 'rate-node'
+          })
+        }
       }
       // update: undefined
     },

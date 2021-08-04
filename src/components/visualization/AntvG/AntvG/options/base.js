@@ -21,7 +21,11 @@ export default {
       stroke: nodeColor
     },
     labelCfg: {
-      position: 'bottom'
+      position: 'bottom',
+      offset: 12,
+      style: {
+        fontSize: 20
+      }
     }
   },
   defaultEdge: {

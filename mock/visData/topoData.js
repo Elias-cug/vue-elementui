@@ -4,25 +4,29 @@ const topoArtif = {
       id: 'N01',
       label: 'BROWSER',
       type: 'circle',
-      nodeType: 'DEM'
+      nodeType: 'DEM',
+      errorRate: 0.3
     },
     {
       id: 'N02',
       label: 'Cloud',
       type: 'circle',
-      nodeType: 'CLOUD'
+      nodeType: 'CLOUD',
+      errorRate: 0.1
     },
     {
       id: 'N03',
       label: 'Switch',
       type: 'circle',
-      nodeType: 'SWITCH'
+      nodeType: 'SWITCH',
+      errorRate: 1
     },
     {
       id: 'N04',
       label: 'Web',
       type: 'circle',
-      nodeType: 'APM'
+      nodeType: 'APM',
+      errorRate: 0
     },
     {
       id: 'N05',

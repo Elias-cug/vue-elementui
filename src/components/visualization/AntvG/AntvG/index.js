@@ -4,6 +4,7 @@ import { registerEdge } from './register-edge.js'
 import { merge } from 'lodash'
 import baseOpts from './options/base.js'
 import { createNodeTip, createEdgeTip } from './plugins'
+import { getTheme } from './options/theme'
 
 /**
  * @author liyish
@@ -47,6 +48,10 @@ class AntvG {
     this.graph.data(data)
     this.graph.render()
     this.graph.fitView()
+    const _this = this
+    setImmediate(function () {
+      _this.addZoomEvent(_this.graph)
+    })
   }
 
   /** 切换主题:  */
@@ -75,6 +80,9 @@ class AntvG {
     this.graph.on('edge:mouseout', evt => {
       this.addMouseoutEdgeEvent(evt)
     })
+    this.graph.on('wheelzoom', () => {
+      this.addZoomEvent(this.graph)
+    })
   }
 
   /** 鼠标移入节点 */
@@ -88,6 +96,42 @@ class AntvG {
 
   /** 鼠标移出边 */
   addMouseoutEdgeEvent () {}
+
+  /** zoom事件 */
+  addZoomEvent (graph) {
+    const zoom = graph.getZoom()
+    let {
+      edgeLineWidth,
+      nodeLineWidth,
+      edgeSelectedLineWidth,
+      nodeSelectedLineWidth
+    } = getTheme()
+    if (zoom <= 1) {
+      edgeSelectedLineWidth = edgeLineWidth / zoom + 1
+      edgeLineWidth = edgeLineWidth / zoom
+
+      nodeSelectedLineWidth = nodeLineWidth / zoom + 1
+      nodeLineWidth = nodeLineWidth / zoom
+    }
+
+    graph.getEdges().forEach(edge => {
+      const model = edge._cfg.model
+      const stateStyles = edge._cfg.styles
+      model.style.lineWidth = edgeLineWidth
+      model.stateStyles = stateStyles
+      model.stateStyles.highlight.lineWidth = edgeSelectedLineWidth
+      edge.update(model)
+    })
+
+    graph.getNodes().forEach(node => {
+      const model = node._cfg.model
+      const stateStyles = node._cfg.styles
+      model.style.lineWidth = nodeLineWidth
+      model.stateStyles = stateStyles
+      model.stateStyles.highlight.lineWidth = nodeSelectedLineWidth
+      node.update(model)
+    })
+  }
 
   /** 按类型动态增加插件 */
   addPlugin () {

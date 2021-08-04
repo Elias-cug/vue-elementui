@@ -1,3 +1,14 @@
+const commonConfig = {
+  nodeLineWidth: 2,
+  nodeSelectedLineWidth: 3,
+  nodeLineWidthOne: 1,
+  nodeLineWidthTwo: 2,
+
+  edgeLineWidth: 2,
+  edgeSelectedLineWidth: 3,
+  edgeLineWidthOne: 1,
+  edgeLineWidthTwo: 2
+}
 const whiteTheme = {
   nodeColor: '#00C774',
   nodeRightColor: '#00C774',
@@ -17,5 +28,6 @@ const blackTheme = {}
 
 export function getTheme () {
   const theme = 'white'
-  return theme === 'white' ? whiteTheme : blackTheme
+  const result = theme === 'white' ? whiteTheme : blackTheme
+  return Object.assign(result, commonConfig)
 }

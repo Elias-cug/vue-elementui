@@ -16,11 +16,10 @@ function registerRateNode (G6) {
     'rate-node',
     {
       afterDraw (cfg, group) {
-        console.log('tmp log: ', cfg)
         const { errorRate = 0 } = cfg
 
         // 配置
-        const lineWidth = 3
+        const lineWidth = cfg.style.lineWidth
         const rightColor = nodeRightColor
         const errorColor = nodeErrorColor
 
@@ -71,8 +70,8 @@ function registerRateNode (G6) {
             name: 'rate-node'
           })
         }
-      }
-      // update: undefined
+      },
+      update: undefined
     },
     'circle'
   )

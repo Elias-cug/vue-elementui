@@ -1,5 +1,5 @@
 import { getTheme } from './theme'
-const { nodeColor, edgeColor } = getTheme()
+const { nodeColor, edgeColor, nodeLineWidthTwo, edgeLineWidthTwo } = getTheme()
 export default {
   renderer: 'canvas',
   minZoom: 0.1,
@@ -17,7 +17,7 @@ export default {
     size: 100,
     style: {
       opacity: 0,
-      lineWidth: 2,
+      lineWidth: nodeLineWidthTwo,
       stroke: nodeColor
     },
     labelCfg: {
@@ -32,7 +32,7 @@ export default {
     type: 'cubic-horizontal',
     style: {
       opacity: 1,
-      lineWidth: 2,
+      lineWidth: edgeLineWidthTwo,
       stroke: edgeColor
     }
   }

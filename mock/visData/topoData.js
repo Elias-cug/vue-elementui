@@ -3,53 +3,53 @@ const topoArtif = {
     {
       id: 'N01',
       label: 'BROWSER',
-      type: 'circle',
+      type: 'Browser',
       nodeType: 'DEM',
       errorRate: 0.3
     },
     {
       id: 'N02',
       label: 'Cloud',
-      type: 'circle',
+      type: 'Cloud',
       nodeType: 'CLOUD',
       errorRate: 0.1
     },
     {
       id: 'N03',
       label: 'Switch',
-      type: 'circle',
+      type: 'Switch',
       nodeType: 'SWITCH',
       errorRate: 1
     },
     {
       id: 'N04',
       label: 'Web',
-      type: 'circle',
+      type: 'Service',
       nodeType: 'APM',
       errorRate: 0
     },
     {
       id: 'N05',
       label: 'LB',
-      type: 'circle',
+      type: 'LB',
       nodeType: 'LB'
     },
     {
       id: 'N06',
       label: 'Service-auth',
-      type: 'circle',
+      type: 'Service',
       nodeType: 'APM'
     },
     {
       id: 'N07',
       label: 'Service-order',
-      type: 'circle',
+      type: 'Service',
       nodeType: 'APM'
     },
     {
       id: 'N08',
       label: 'DB',
-      type: 'circle',
+      type: 'DB',
       nodeType: 'APM'
     }
   ],

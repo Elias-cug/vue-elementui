@@ -165,6 +165,14 @@ class AntvG {
     nodes.forEach(ele => {
       ele.imgType = ele.type
       ele.type = 'rate-node'
+
+      let img = null
+      try {
+        img = require(`@/assets/img/topo/${ele.imgType}-${0}.svg`)
+      } catch (error) {
+        img = require(`@/assets/img/topo/unknow-${0}.svg`)
+      }
+      ele.icon = { show: true, height: 90, width: 90, img: img }
     })
     return nodes
   }

@@ -1,7 +1,7 @@
 import G6 from '@antv/g6'
 import { registerNode } from './register-node.js'
 import { registerEdge } from './register-edge.js'
-import { cloneDeep, merge } from 'lodash'
+import { merge } from 'lodash'
 import baseOpts from './options/base.js'
 import { createNodeTip, createEdgeTip } from './plugins'
 
@@ -42,9 +42,9 @@ class AntvG {
 
   /** 渲染数据 */
   renderData (data) {
-    const result = this.dataFilter(data)
-    console.log('最终数据：', result)
-    this.graph.data(result)
+    this.dataFilter(data)
+    console.log('log: 拓扑图渲染数据为：', data)
+    this.graph.data(data)
     this.graph.render()
     this.graph.fitView()
   }
@@ -110,18 +110,14 @@ class AntvG {
 
   /** 数据过滤 */
   dataFilter (data) {
-    data = cloneDeep(data)
-    data = {
-      nodes: this.filterNodes(data.nodes),
-      edges: this.filterEdges(data.edges),
-      combos: this.filterCombos(data.combos)
-    }
+    this.filterNodes(data.nodes)
+    this.filterEdges(data.edges)
+    this.filterCombos(data.combos)
     return data
   }
 
   /** 过滤节点 */
   filterNodes (nodes = []) {
-    nodes = cloneDeep(nodes)
     nodes.forEach(ele => {
       ele.imgType = ele.type
       ele.type = 'rate-node'
@@ -131,16 +127,12 @@ class AntvG {
 
   /** 过滤边 */
   filterEdges (edges = []) {
-    edges = cloneDeep(edges)
-
     return edges
   }
 
   /** 过滤combo */
 
   filterCombos (combos = []) {
-    combos = cloneDeep(combos)
-
     return combos
   }
 }

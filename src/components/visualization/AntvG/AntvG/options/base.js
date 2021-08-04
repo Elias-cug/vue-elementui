@@ -1,3 +1,5 @@
+import { getTheme } from './theme'
+const { nodeColor, edgeColor } = getTheme()
 export default {
   renderer: 'canvas',
   minZoom: 0.1,
@@ -16,7 +18,7 @@ export default {
     style: {
       opacity: 0,
       lineWidth: 2,
-      stroke: '#FF5676'
+      stroke: nodeColor
     },
     labelCfg: {
       position: 'bottom'
@@ -27,7 +29,7 @@ export default {
     style: {
       opacity: 1,
       lineWidth: 2,
-      stroke: '#00D9FF'
+      stroke: edgeColor
     }
   }
 }

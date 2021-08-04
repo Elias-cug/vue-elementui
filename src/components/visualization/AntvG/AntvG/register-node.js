@@ -1,7 +1,8 @@
 /**
  * 注册自定义节点
  */
-
+import { getTheme } from './options/theme'
+const { nodeRightColor, nodeErrorColor } = getTheme()
 export function registerNode (G6) {
   registerRateNode(G6)
 }
@@ -15,6 +16,11 @@ function registerRateNode (G6) {
     'rate-node',
     {
       afterDraw (cfg, group) {
+        // 配置
+        const lineWidth = 3
+        const rightColor = nodeRightColor
+        const errorColor = nodeErrorColor
+
         const r = 50
         const rightRate = 0.5
         // 计算当前的进度对应的角度值
@@ -24,7 +30,7 @@ function registerRateNode (G6) {
 
         // 画大弧还是小弧 0：小 1：大
         const rightLargeArcFlag = rightRate >= 0.5 ? 1 : 0
-        const falseLargeArcFlag = rightRate < 0.5 ? 1 : 0
+        const errorLargeArcFlag = rightRate < 0.5 ? 1 : 0
 
         //极坐标转换成直角坐标
         const xEnd = (r * Math.sin(rad)).toFixed(2)
@@ -33,25 +39,27 @@ function registerRateNode (G6) {
         // 正确的路径
         const rightPath = `M 0 ${-r} A ${r} ${r} 0 ${rightLargeArcFlag} 1 ${xEnd} ${yEnd}`
         // 错误的路径
-        const falsePath = `M 0 ${-r} A ${r} ${r} 0 ${falseLargeArcFlag} 0 ${xEnd} ${yEnd}`
+        const errorPath = `M 0 ${-r} A ${r} ${r} 0 ${errorLargeArcFlag} 0 ${xEnd} ${yEnd}`
 
         group.addShape('path', {
           attrs: {
             path: rightPath,
-            stroke: 'green'
+            stroke: rightColor,
+            lineWidth: lineWidth
           },
           name: 'rate-node'
         })
 
         group.addShape('path', {
           attrs: {
-            path: falsePath,
-            stroke: 'red'
+            path: errorPath,
+            stroke: errorColor,
+            lineWidth: lineWidth
           },
           name: 'rate-node'
         })
-      },
-      update: undefined
+      }
+      // update: undefined
     },
     'circle'
   )

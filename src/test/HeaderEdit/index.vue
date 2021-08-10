@@ -2,7 +2,9 @@
   <div>
     <div class="header_box">
       <div class="header_left">
-        <div class="logo"></div>
+        <div class="logo_box">
+          <div class="logo"></div>
+        </div>
       </div>
       <div>
         <div class="icon_box">
@@ -34,3 +36,47 @@ export default {
   methods: {}
 }
 </script>
+
+<style scoped>
+.header_box,
+header_box > div {
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+.header_box {
+  background: #2c3553;
+  height: 48px;
+  color: #fff;
+  justify-content: space-between;
+}
+.header_box > div {
+  justify-content: flex-start;
+}
+.header_box .logo_box {
+  width: 160px;
+  height: 48px;
+  display: flex;
+  justify-content: center;
+}
+.header_box .logo {
+  width: 160px;
+  height: 48px;
+  margin: 5px;
+  background: url('../../assets/img/tag.png');
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+}
+.header_box .icon_box {
+  margin-right: 8px;
+}
+.header_box .icon_box > span {
+  color: #c1c1c1;
+  display: inline-block;
+  width: 48px;
+  line-height: 48px;
+  text-align: center;
+  margin-right: 1px;
+  cursor: pointer;
+}
+</style>

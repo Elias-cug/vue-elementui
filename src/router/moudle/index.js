@@ -1,14 +1,14 @@
 import Layout from '@/layout'
 // 首页
 import Main from '@/page/Main'
-// 测试路由
-import Test from '@/components/test'
+
+import HeaderEdit from '@/test/HeaderEdit'
 // 可视化路由
 import visRouter from './visRouter'
 // 外部路由
 import outerRouter from './outerRouter'
-// test-vue-demo
-import TestVueDemo from '@/page/test-vue-demo'
+// 基础组件路由
+import baseComponentRouter from './base-component-router'
 const routes = [
   {
     path: '/',
@@ -17,26 +17,21 @@ const routes = [
   {
     path: '/test',
     name: 'Test',
-    redirect: '/test',
     component: Layout,
+    redirect: '/test/header-edit',
     meta: { title: '测试' },
     children: [
       {
-        path: '/test/iframe',
-        name: 'G6',
-        component: Test,
-        meta: { title: '测试cookie' }
-      },
-      {
-        path: '/test/test-vue-demo',
-        name: 'TextVueDemo',
-        component: TestVueDemo,
-        meta: { title: '测试vue源码' }
+        path: '/test/header-edit',
+        name: 'HeaderEdit',
+        component: HeaderEdit,
+        meta: { title: '头部设置' }
       }
     ]
   },
   ...visRouter,
-  ...outerRouter
+  ...outerRouter,
+  ...baseComponentRouter
 ]
 
 export default routes
